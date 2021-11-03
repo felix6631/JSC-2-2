@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     public float speed = 0.1f;
     private float moveX = 0;
     private bool jumpActive = true;
+    private bool dashActive = true;
 
     private void Awake()
     {
@@ -37,55 +38,55 @@ public class Player : MonoBehaviour
     
     }
 
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Ground")
-        {
-            bc2d.isTrigger = false;
-            jumpActive = true;
-        }
-        else if(collision.gameObject.tag == "Wall")
-        {
-            moveX = 0;
-        }
+        bc2d.isTrigger = true;
+    }
+    
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        bc2d.isTrigger = false;
+        jumpActive = true;
+        dashActive = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        holdAngle();
         moveInput();
-    }
-
-    void holdAngle()
-    {
-        if (-180 < tf.rotation.z && tf.rotation.z < 0)
-            transform.Rotate(Vector3.forward);
-        else if (0 < tf.rotation.z && tf.rotation.z < 180)
-            transform.Rotate(Vector3.back);
-  
     }
 
     void moveInput()
     {
-        moveX = 0;
+        moveX = 0; speed = 0.1f;
         if (Input.GetKeyDown(KeyCode.Space) && jumpActive) //jump
         {
             rb2d.velocity = new Vector2(0, jumpHeight);
             jumpActive = false;
             bc2d.isTrigger = true;
         }
-        if (Input.GetKey(KeyCode.LeftArrow)) //moveing left and right
+        if (Input.GetKey(KeyCode.LeftArrow))
+        { //moveing left and right
             moveX = -1;
+            
+        }
         else if (Input.GetKey(KeyCode.RightArrow))
+        {
             moveX = 1;
-        
+        }
+        if (Input.GetKeyDown(KeyCode.LeftShift) && dashActive)
+        {
+            speed = 2.0f;
+            dashActive = false;
+        }
 
         transform.Translate(new Vector3(moveX, 0f, 0f)*speed);
     }
 
     void dash()
     {
-    
+        
     }
 }
