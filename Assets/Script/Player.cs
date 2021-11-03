@@ -19,8 +19,9 @@ public class Player : MonoBehaviour
 {
     private Rigidbody2D rb2d;
     private BoxCollider2D bc2d;
+    private Transform tf;
     public float jumpHeight = 6.0f;
-    public float speed = 1.0f;
+    public float speed = 0.1f;
     private float moveX = 0;
     private bool jumpActive = true;
 
@@ -28,6 +29,7 @@ public class Player : MonoBehaviour
     {
         rb2d = gameObject.GetComponent<Rigidbody2D>();
         bc2d = gameObject.GetComponent<BoxCollider2D>();
+        tf = gameObject.GetComponent<Transform>();
     }
     // Start is called before the first frame update
     void Start()
@@ -51,30 +53,39 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.rotation.z = 0;
+        holdAngle();
         moveInput();
     }
 
-    
+    void holdAngle()
+    {
+        if (-180 < tf.rotation.z && tf.rotation.z < 0)
+            transform.Rotate(Vector3.forward);
+        else if (0 < tf.rotation.z && tf.rotation.z < 180)
+            transform.Rotate(Vector3.back);
+  
+    }
 
     void moveInput()
     {
         moveX = 0;
-        if (Input.GetKeyDown(KeyCode.Space) && jumpActive)
+        if (Input.GetKeyDown(KeyCode.Space) && jumpActive) //jump
         {
-            rb2d.velocity = new Vector2(rb2d.velocity.x, jumpHeight);
+            rb2d.velocity = new Vector2(0, jumpHeight);
             jumpActive = false;
             bc2d.isTrigger = true;
         }
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.LeftArrow)) //moveing left and right
             moveX = -1;
         else if (Input.GetKey(KeyCode.RightArrow))
             moveX = 1;
-        transform.Translate(new Vector3(moveX, 0f, 0f)*0.1f);
+        
+
+        transform.Translate(new Vector3(moveX, 0f, 0f)*speed);
     }
 
     void dash()
     {
-
+    
     }
 }
