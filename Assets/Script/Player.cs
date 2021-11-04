@@ -23,8 +23,8 @@ public class Player : MonoBehaviour
     public float jumpHeight = 6.0f;
     public float speed = 0.1f;
     private float moveX = 0;
-    private bool jumpActive = true;
-    private bool dashActive = true;
+    public bool jumpActive = true;
+    public bool dashActive = true;
 
     private void Awake()
     {
@@ -38,18 +38,14 @@ public class Player : MonoBehaviour
     
     }
 
-    
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        bc2d.isTrigger = true;
-    }
-    
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        bc2d.isTrigger = false;
-        jumpActive = true;
-        dashActive = true;
+        if (collision.gameObject.tag == "Ground")
+        {
+            jumpActive = true;
+            dashActive = true;
+        }
     }
 
     // Update is called once per frame
@@ -65,7 +61,7 @@ public class Player : MonoBehaviour
         {
             rb2d.velocity = new Vector2(0, jumpHeight);
             jumpActive = false;
-            bc2d.isTrigger = true;
+            //bc2d.isTrigger = true;
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         { //moveing left and right
@@ -78,15 +74,10 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.LeftShift) && dashActive)
         {
-            speed = 2.0f;
+            speed = 1.0f;
             dashActive = false;
         }
 
         transform.Translate(new Vector3(moveX, 0f, 0f)*speed);
-    }
-
-    void dash()
-    {
-        
     }
 }
