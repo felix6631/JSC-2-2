@@ -121,9 +121,9 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.32, y: 0.32}
+    border: {x: 0.4666667, y: 0.4666667, z: 0.6, w: 0}
+    pivot: {x: 0.5, y: 0.65625}
+    oldSize: {x: 2.1333334, y: 2.1333334}
     newSize: {x: 1, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -145,6 +145,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpHeight: 6
-  speed: 0.1
+  speed: 0.01
   jumpActive: 1
   dashActive: 1
