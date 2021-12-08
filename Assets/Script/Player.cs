@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     public float speed = 0.1f;
     private float moveX = 0;
     public bool jumpActive = true;
-    public bool dashActive = true;
+    public int dashActive = 2;
 
     private void Awake()
     {
@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-    
+
     }
 
 
@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == "Ground")
         {
             jumpActive = true;
-            dashActive = true;
+            dashActive = 2;
         }
     }
 
@@ -75,12 +75,12 @@ public class Player : MonoBehaviour
             moveX = 1;
             sprd.flipX = false;
         }
-        if (Input.GetKeyDown(KeyCode.C) && dashActive)
+        if (Input.GetKeyDown(KeyCode.C) && dashActive > 0)
         {
             speed = 1.0f;
-            dashActive = false;
+            dashActive -= 1;
         }
 
-        transform.Translate(new Vector3(moveX, 0f, 0f)*speed);
+        transform.Translate(new Vector3(moveX, 0f, 0f) * speed);
     }
 }
