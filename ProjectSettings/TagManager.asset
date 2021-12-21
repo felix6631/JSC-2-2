@@ -6,15 +6,19 @@ TagManager:
   tags:
   - Ground
   - Wall
+  - Block
+  - Damage
+  - ClrCnt
+  - BigJump
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - BackGround
   - Water
   - UI
-  - 
-  - 
+  - block
+  - damage
   - 
   - 
   - 
@@ -42,4 +46,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: BackGround
+    uniqueID: 2368585843
     locked: 0
